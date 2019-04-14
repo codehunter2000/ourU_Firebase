@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ourU_Firebase</string>
+    <string name="cond_prompt">Choose a Condition</string>
+
+    <string-array name="conditions">
+        <item>New</item>
+        <item>Like New</item>
+        <item>Good</item>
+        <item>Fair</item>
+        <item>Poor</item>
+    </string-array>
 </resources>
