@@ -8,19 +8,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddListing extends AppCompatActivity {
 
     ImageView iv;
+    Button postButton, cameraButton;
+    EditText titleBox, authorBox, isbnBox, descritpionBox;
+    Spinner conditionSpinner;
+    String title, author, isbn, condition, description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
 
-        iv = (ImageView)findViewById(R.id.book_picture);
-        Button cameraButton = (Button)findViewById(R.id.camera_button);
+        iv = findViewById(R.id.book_picture);
+        postButton = findViewById(R.id.post_button);
+        cameraButton = findViewById(R.id.camera_button);
+        titleBox = findViewById(R.id.enter_title);
+        authorBox = findViewById(R.id.enter_author);
+        isbnBox  = findViewById(R.id.enter_ISBN);
+        descritpionBox = findViewById(R.id.enter_description);
+        conditionSpinner = findViewById(R.id.choose_condition);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,6 +43,22 @@ public class AddListing extends AppCompatActivity {
 
                 startActivityForResult(intent, 0);
 
+            }
+        });
+
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                title = titleBox.getText().toString();
+                author = authorBox.getText().toString();
+                isbn = isbnBox.getText().toString();
+                condition = conditionSpinner.getSelectedItem().toString();
+                description = descritpionBox.getText().toString();
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                Listing toAdd = new Listing(title, author, isbn, condition, description);
+                database.child("listings").child(Integer.toString(toAdd.hashCode()))
+                        .setValue(toAdd);
             }
         });
     }

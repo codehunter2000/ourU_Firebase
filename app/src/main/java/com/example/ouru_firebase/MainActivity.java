@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity
                 email = encodeString(email);
                 User toAdd = new User(fName, lName, email);
                 database.child("users").child(email).setValue(toAdd);
+                Intent loadMain = new Intent(this, AddListing.class);
+                startActivity(loadMain);
 
             } else {
                 // Google Sign In failed, update UI appropriately
