@@ -19,7 +19,7 @@ public class AddListing extends AppCompatActivity {
 
     ImageView iv;
     Button postButton, cameraButton;
-    EditText titleBox, authorBox, isbnBox, descritpionBox;
+    EditText titleBox, authorBox, isbnBox, descriptionBox;
     Spinner conditionSpinner;
     String title, author, isbn, condition, description;
 
@@ -34,7 +34,7 @@ public class AddListing extends AppCompatActivity {
         titleBox = findViewById(R.id.enter_title);
         authorBox = findViewById(R.id.enter_author);
         isbnBox  = findViewById(R.id.enter_ISBN);
-        descritpionBox = findViewById(R.id.enter_description);
+        descriptionBox = findViewById(R.id.enter_description);
         conditionSpinner = findViewById(R.id.choose_condition);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +54,7 @@ public class AddListing extends AppCompatActivity {
                 author = authorBox.getText().toString();
                 isbn = isbnBox.getText().toString();
                 condition = conditionSpinner.getSelectedItem().toString();
-                description = descritpionBox.getText().toString();
+                description = descriptionBox.getText().toString();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                 Listing toAdd = new Listing(title, author, isbn, condition, description);
                 database.child("listings").child(Integer.toString(toAdd.hashCode()))

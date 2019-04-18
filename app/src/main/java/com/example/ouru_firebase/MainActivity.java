@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleSignInOptions gso;
     private  GoogleApiClient mGoogleApiClient;
     private DatabaseReference database;
-    private Button signOutButton;
+    private Button signOutButton, goToListingsButton;
     private com.google.android.gms.common.SignInButton signInButton;
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 123;
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         database = FirebaseDatabase.getInstance().getReference();
         signInButton = findViewById(R.id.sign_in_button);
         signOutButton = findViewById(R.id.sign_out_button);
+        goToListingsButton = findViewById(R.id.listings_button);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -186,5 +187,11 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
+    }
+
+
+    public void listingButtonClicked(View view) {
+        Intent goToListings = new Intent(this, AddListing.class);
+        startActivity(goToListings);
     }
 }
