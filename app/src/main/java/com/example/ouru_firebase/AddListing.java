@@ -36,6 +36,7 @@ public class AddListing extends AppCompatActivity {
         isbnBox  = findViewById(R.id.enter_ISBN);
         descriptionBox = findViewById(R.id.enter_description);
         conditionSpinner = findViewById(R.id.choose_condition);
+
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

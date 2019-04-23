@@ -191,7 +191,12 @@ public class MainActivity extends AppCompatActivity
 
 
     public void listingButtonClicked(View view) {
-        Intent goToListings = new Intent(this, AddListing.class);
+        Intent goToListings = new Intent(this, ListingsPage.class);
         startActivity(goToListings);
+    }
+
+    public void postButtonClicked(View view) {
+        Intent goToPostPage = new Intent(this, AddListing.class);
+        startActivity(goToPostPage);
     }
 }
