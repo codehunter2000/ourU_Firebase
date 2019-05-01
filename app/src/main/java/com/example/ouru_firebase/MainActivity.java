@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                signInButton.setVisibility(View.GONE);
-                signOutButton.setVisibility(View.VISIBLE);
+                signInButton.setVisibility(View.VISIBLE);
+                signOutButton.setVisibility(View.GONE);
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());

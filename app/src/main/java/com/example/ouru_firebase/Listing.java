@@ -1,5 +1,7 @@
 package com.example.ouru_firebase;
 
+import android.support.annotation.NonNull;
+
 public class Listing
 {
     private String title;
@@ -24,6 +26,19 @@ public class Listing
         this.isbn = isbn;
         this.condition = condition;
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String toString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(title + "\n");
+        stringBuilder.append(author + "\n");
+        stringBuilder.append(isbn + "\n");
+        stringBuilder.append(condition + "\n");
+        stringBuilder.append(description + "\n");
+        return stringBuilder.toString();
     }
 
     public String getTitle() {
