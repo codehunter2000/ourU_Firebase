@@ -1,6 +1,8 @@
 package com.example.ouru_firebase;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String firstName, lastName, email;
 
     public User() {

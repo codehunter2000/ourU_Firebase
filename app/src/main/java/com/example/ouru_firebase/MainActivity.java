@@ -1,5 +1,6 @@
 package com.example.ouru_firebase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private Button signOutButton, goToListingsButton;
     private com.google.android.gms.common.SignInButton signInButton;
     private static final String TAG = "MainActivity";
+    private static final String FILE_NAME = "user.dat";
     private static final int RC_SIGN_IN = 123;
 
 
@@ -137,6 +142,7 @@ public class MainActivity extends AppCompatActivity
                 String email = account.getEmail();
                 email = encodeString(email);
                 User toAdd = new User(fName, lName, email);
+                saveUser(toAdd);
                 database.child("users").child(email).setValue(toAdd);
                 Intent loadMain = new Intent(this, AddListing.class);
                 startActivity(loadMain);
@@ -145,6 +151,24 @@ public class MainActivity extends AppCompatActivity
                 // Google Sign In failed, update UI appropriately
                 // ...
             }
+        }
+    }
+
+    private void saveUser(User user)
+    {
+
+        try
+        {
+            FileOutputStream outputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            ObjectOutputStream oStream = new ObjectOutputStream(outputStream);
+            oStream.writeObject(user);
+            oStream.close();
+            outputStream.close();
+        }
+
+        catch (Exception e)
+        {
+            Log.v(TAG, "Error saving user data");
         }
     }
 
