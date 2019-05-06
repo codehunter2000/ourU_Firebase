@@ -18,6 +18,26 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @Override
+    public int hashCode() {
+        int ascii = 0;
+        for (int i = 0; i < firstName.length(); i++)
+        {
+            ascii += firstName.charAt(i);
+        }
+
+        for (int i = 0; i < lastName.length(); i++)
+        {
+            ascii += lastName.charAt(i);
+        }
+
+        for (int i = 0; i < email.length(); i++)
+        {
+            ascii += email.charAt(i);
+        }
+        return ascii;
+    }
+
     public String getFirstName() {
         return firstName;
     }

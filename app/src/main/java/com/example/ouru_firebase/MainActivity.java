@@ -140,10 +140,9 @@ public class MainActivity extends AppCompatActivity
                 String fName = account.getDisplayName();
                 String lName = account.getFamilyName();
                 String email = account.getEmail();
-                email = encodeString(email);
                 User toAdd = new User(fName, lName, email);
                 saveUser(toAdd);
-                database.child("users").child(email).setValue(toAdd);
+                database.child("users").child(Integer.toString(toAdd.hashCode())).setValue(toAdd);
                 Intent loadMain = new Intent(this, AddListing.class);
                 startActivity(loadMain);
 
@@ -156,7 +155,6 @@ public class MainActivity extends AppCompatActivity
 
     private void saveUser(User user)
     {
-
         try
         {
             FileOutputStream outputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
@@ -170,11 +168,6 @@ public class MainActivity extends AppCompatActivity
         {
             Log.v(TAG, "Error saving user data");
         }
-    }
-
-    private String encodeString(String email)
-    {
-        return email.replace(".", ",");
     }
 
     @Override

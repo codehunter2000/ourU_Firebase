@@ -6,14 +6,16 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class AddListing extends AppCompatActivity {
 
@@ -22,11 +24,14 @@ public class AddListing extends AppCompatActivity {
     EditText titleBox, authorBox, isbnBox, descriptionBox;
     Spinner conditionSpinner;
     String title, author, isbn, condition, description;
+    private static final String FILE_NAME = "/data/user/0/com.example.ouru_firebase/files/user.dat";
+    private static final String TAG = "AddListing Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
+        final User user = getUserInfo();
 
         iv = findViewById(R.id.book_picture);
         postButton = findViewById(R.id.post_button);
@@ -57,7 +62,8 @@ public class AddListing extends AppCompatActivity {
                 condition = conditionSpinner.getSelectedItem().toString();
                 description = descriptionBox.getText().toString();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                Listing toAdd = new Listing(title, author, isbn, condition, description);
+                Listing toAdd = new Listing(title, author, isbn, condition, description,
+                    user.getEmail());
                 database.child("listings").child(Integer.toString(toAdd.hashCode()))
                         .setValue(toAdd);
             }
@@ -70,5 +76,25 @@ public class AddListing extends AppCompatActivity {
 
         Bitmap bm = (Bitmap)data.getExtras().get("data");
         iv.setImageBitmap(bm);
+    }
+
+    private User getUserInfo()
+    {
+        try
+        {
+            FileInputStream inputStream = new FileInputStream(FILE_NAME);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            User temp = (User) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+            return temp;
+        }
+
+        catch (Exception e)
+        {
+            Log.v(TAG, "Error saving user data");
+        }
+
+        return null;
     }
 }
