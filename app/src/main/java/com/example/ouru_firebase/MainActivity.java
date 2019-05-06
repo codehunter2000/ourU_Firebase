@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleSignInOptions gso;
     private  GoogleApiClient mGoogleApiClient;
-    private DatabaseReference database;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private Button signOutButton, goToListingsButton;
     private com.google.android.gms.common.SignInButton signInButton;
     private static final String TAG = "MainActivity";
@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity
                 .build();
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        database = FirebaseDatabase.getInstance().getReference();
         signInButton = findViewById(R.id.sign_in_button);
         signOutButton = findViewById(R.id.sign_out_button);
         goToListingsButton = findViewById(R.id.listings_button);
