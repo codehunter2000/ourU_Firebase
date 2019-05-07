@@ -37,12 +37,12 @@ public class Listing
     public String toString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(title + "\n");
-        stringBuilder.append(author + "\n");
-        stringBuilder.append(isbn + "\n");
-        stringBuilder.append(condition + "\n");
-        stringBuilder.append(description + "\n");
-        stringBuilder.append(email);
+        stringBuilder.append("Title: " + title + "\n");
+        stringBuilder.append("Author: " + author + "\n");
+        stringBuilder.append("ISBN#: " + isbn + "\n");
+        stringBuilder.append("Condition: " + condition + "\n");
+        stringBuilder.append("Description: " + description + "\n");
+        stringBuilder.append("Email: " + email);
         return stringBuilder.toString();
     }
 

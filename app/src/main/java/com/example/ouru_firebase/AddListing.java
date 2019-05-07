@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.FileInputStream;
@@ -21,9 +24,9 @@ public class AddListing extends AppCompatActivity {
 
     ImageView iv;
     Button postButton, cameraButton;
-    EditText titleBox, authorBox, isbnBox, descriptionBox;
+    EditText titleBox, authorBox, isbnBox, descriptionBox, priceBox;
     Spinner conditionSpinner;
-    String title, author, isbn, condition, description;
+    String title, author, isbn, condition, description, price;
     private static final String FILE_NAME = "/data/user/0/com.example.ouru_firebase/files/user.dat";
     private static final String TAG = "AddListing Activity";
 
@@ -41,6 +44,7 @@ public class AddListing extends AppCompatActivity {
         isbnBox  = findViewById(R.id.enter_ISBN);
         descriptionBox = findViewById(R.id.enter_description);
         conditionSpinner = findViewById(R.id.choose_condition);
+        priceBox = findViewById(R.id.enter_price);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +65,19 @@ public class AddListing extends AppCompatActivity {
                 isbn = isbnBox.getText().toString();
                 condition = conditionSpinner.getSelectedItem().toString();
                 description = descriptionBox.getText().toString();
+                price = priceBox.getText().toString();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                 Listing toAdd = new Listing(title, author, isbn, condition, description,
                     user.getEmail());
                 database.child("listings").child(Integer.toString(toAdd.hashCode()))
                         .setValue(toAdd);
+                Toast.makeText(getApplicationContext(),"Post successful", Toast.LENGTH_LONG).show();
+                titleBox.getText().clear();
+                authorBox.getText().clear();
+                isbnBox.getText().clear();
+                conditionSpinner.setSelection(0);
+                descriptionBox.getText().clear();
+                priceBox.getText().clear();
             }
         });
     }
@@ -96,5 +108,21 @@ public class AddListing extends AppCompatActivity {
         }
 
         return null;
+    }
+
+    public void viewListingsClicked(View view) {
+        Intent goToListings = new Intent(this, ListingsPage.class);
+        startActivity(goToListings);
+    }
+
+    public void myListingsClicked(View view) {
+        //Intent goToMyListings= new Intent(this, MyListings.class);
+        //startActivity(goToMyListings);
+    }
+
+    public void signOutClicked(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent goToSignInPage = new Intent(this,MainActivity.class);
+        startActivity(goToSignInPage);
     }
 }

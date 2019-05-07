@@ -22,18 +22,19 @@
             android:id="@+id/create_post"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:onClick="createPostClicked"
             android:src="@drawable/create_post"
+            android:onClick="createPostClicked"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"/>
 
-    <ImageButton
+        <ImageButton
         android:id="@+id/blank"
-        android:layout_width="112dp"
+        android:layout_width="192dp"
         android:layout_height="100dp"
         android:src="@drawable/blank"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/create_post"/>
+
 
     <ImageButton
         android:id="@+id/my_listings"
@@ -43,6 +44,14 @@
         android:onClick="myListingsClicked"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/blank"/>
+
+        <ImageButton
+            android:id="@+id/blank2"
+            android:layout_width="192dp"
+            android:layout_height="100dp"
+            android:src="@drawable/blank"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/my_listings"/>
 
     <ImageButton
         android:id="@+id/sign_out"

@@ -1,11 +1,15 @@
 package com.example.ouru_firebase;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +34,19 @@ public class ListingsPage extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listview);
         databaseReference = FirebaseDatabase.getInstance().getReference("listings");
         listings = new ArrayList<>();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object listItem = listView.getItemAtPosition(position);
+                Intent goToIndividualListing = new Intent(view.getContext(), IndividualListing.class);
+                goToIndividualListing.putExtra("Title", "Title");
+                goToIndividualListing.putExtra("ISBN", "ISBN");
+                goToIndividualListing.putExtra("Condition", "Condition");
+                goToIndividualListing.putExtra("Price", "Price");
+                goToIndividualListing.putExtra("Description", "Description");
+                startActivity(goToIndividualListing);
+            }
+        });
 
 //        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listings);
 //        listView.setAdapter(arrayAdapter);
@@ -56,5 +73,21 @@ public class ListingsPage extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void createPostClicked(View view) {
+        Intent goToAddListings = new Intent(this, AddListing.class);
+        startActivity(goToAddListings);
+    }
+
+    public void myListingsClicked(View view) {
+        //Intent goToMyListings= new Intent(this, MyListings.class);
+        //startActivity(goToMyListings);
+    }
+
+    public void signOutClicked(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent goToSignInPage = new Intent(this,MainActivity.class);
+        startActivity(goToSignInPage);
     }
 }

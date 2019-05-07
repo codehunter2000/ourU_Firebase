@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleSignInOptions gso;
     private  GoogleApiClient mGoogleApiClient;
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    private Button signOutButton, goToListingsButton;
+    private Button signOutButton;
     private com.google.android.gms.common.SignInButton signInButton;
     private static final String TAG = "MainActivity";
     private static final String FILE_NAME = "user.dat";
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         signInButton = findViewById(R.id.sign_in_button);
         signOutButton = findViewById(R.id.sign_out_button);
-        goToListingsButton = findViewById(R.id.listings_button);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity
                 User toAdd = new User(fName, lName, email);
                 saveUser(toAdd);
                 database.child("users").child(Integer.toString(toAdd.hashCode())).setValue(toAdd);
-                Intent loadMain = new Intent(this, AddListing.class);
+                Intent loadMain = new Intent(this, ListingsPage.class);
                 startActivity(loadMain);
 
             } else {
@@ -202,16 +201,5 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
-    }
-
-
-    public void listingButtonClicked(View view) {
-        Intent goToListings = new Intent(this, ListingsPage.class);
-        startActivity(goToListings);
-    }
-
-    public void postButtonClicked(View view) {
-        Intent goToPostPage = new Intent(this, AddListing.class);
-        startActivity(goToPostPage);
     }
 }
