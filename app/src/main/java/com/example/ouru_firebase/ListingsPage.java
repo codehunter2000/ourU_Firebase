@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +26,8 @@ public class ListingsPage extends AppCompatActivity {
 
     private ArrayList<Listing> listings;
     private ListView listView;
+    private EditText editText;
+    private ArrayAdapter arrayAdapter;
     private DatabaseReference databaseReference;
 
 
@@ -34,6 +39,7 @@ public class ListingsPage extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listview);
         databaseReference = FirebaseDatabase.getInstance().getReference("listings");
         listings = new ArrayList<>();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -63,9 +69,27 @@ public class ListingsPage extends AppCompatActivity {
                     Listing listing = temp.getValue(Listing.class);
                     listings.add(listing);
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(
+                arrayAdapter = new ArrayAdapter(
                         ListingsPage.this,android.R.layout.simple_list_item_1, listings);
                 listView.setAdapter(arrayAdapter);
+
+                editText = (EditText) findViewById(R.id.search_filter);
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        (ListingsPage.this).arrayAdapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
             }
 
             @Override
