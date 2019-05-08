@@ -45,11 +45,11 @@ public class ListingsPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object listItem = listView.getItemAtPosition(position);
                 Intent goToIndividualListing = new Intent(view.getContext(), IndividualListing.class);
-                goToIndividualListing.putExtra("Title", "Title");
-                goToIndividualListing.putExtra("ISBN", "ISBN");
-                goToIndividualListing.putExtra("Condition", "Condition");
-                goToIndividualListing.putExtra("Price", "Price");
-                goToIndividualListing.putExtra("Description", "Description");
+                goToIndividualListing.putExtra("Title", "Bob");
+                goToIndividualListing.putExtra("ISBN", "The");
+                goToIndividualListing.putExtra("Condition", "Builder");
+                goToIndividualListing.putExtra("Price", "Builds");
+                goToIndividualListing.putExtra("Description", "Things");
                 startActivity(goToIndividualListing);
             }
         });

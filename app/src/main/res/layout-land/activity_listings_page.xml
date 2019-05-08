@@ -7,6 +7,19 @@
     android:orientation="vertical"
     tools:context=".ListingsPage">
 
+    <TextView
+        android:id="@+id/filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Type to filter"
+        android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/search_filter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="wrap_content"
