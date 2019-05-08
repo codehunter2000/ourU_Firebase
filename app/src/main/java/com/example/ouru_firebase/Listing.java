@@ -10,6 +10,7 @@ public class Listing
     private String condition;
     private String description;
     private String email;
+    private String price;
 
     public Listing()
     {
@@ -19,10 +20,11 @@ public class Listing
         condition = null;
         description = null;
         email = null;
+        price = null;
     }
 
     public Listing(String title, String author, String isbn, String condition,
-                   String description, String email)
+                   String description, String email, String price)
     {
         this.title = title;
         this.author = author;
@@ -30,6 +32,7 @@ public class Listing
         this.condition = condition;
         this.description = description;
         this.email = email;
+        this.price = price;
     }
 
     @NonNull
@@ -43,6 +46,7 @@ public class Listing
         stringBuilder.append("Condition: " + condition + "\n");
         stringBuilder.append("Description: " + description + "\n");
         stringBuilder.append("Email: " + email);
+        stringBuilder.append("Price: " + price);
         return stringBuilder.toString();
     }
 
@@ -78,6 +82,11 @@ public class Listing
         for (int i = 0; i < email.length(); i++)
         {
             ascii += email.charAt(i);
+        }
+
+        for (int i = 0; i < price.length(); i++)
+        {
+            ascii += price.charAt(i);
         }
         return ascii;
     }

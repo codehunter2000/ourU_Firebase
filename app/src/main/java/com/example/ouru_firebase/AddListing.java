@@ -68,7 +68,7 @@ public class AddListing extends AppCompatActivity {
                 price = priceBox.getText().toString();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                 Listing toAdd = new Listing(title, author, isbn, condition, description,
-                    user.getEmail());
+                    user.getEmail(), price);
                 database.child("listings").child(Integer.toString(toAdd.hashCode()))
                         .setValue(toAdd);
                 Toast.makeText(getApplicationContext(),"Post successful", Toast.LENGTH_LONG).show();
