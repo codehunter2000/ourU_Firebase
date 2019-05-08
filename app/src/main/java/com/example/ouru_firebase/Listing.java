@@ -45,7 +45,7 @@ public class Listing
         stringBuilder.append("ISBN#: " + isbn + "\n");
         stringBuilder.append("Condition: " + condition + "\n");
         stringBuilder.append("Description: " + description + "\n");
-        stringBuilder.append("Email: " + email);
+        stringBuilder.append("Email: " + email + "\n");
         stringBuilder.append("Price: " + price);
         return stringBuilder.toString();
     }
@@ -137,5 +137,13 @@ public class Listing
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }
