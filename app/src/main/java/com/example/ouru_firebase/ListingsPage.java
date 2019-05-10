@@ -43,13 +43,14 @@ public class ListingsPage extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object listItem = listView.getItemAtPosition(position);
+                Listing listItem = (Listing)listView.getItemAtPosition(position);
                 Intent goToIndividualListing = new Intent(view.getContext(), IndividualListing.class);
-                goToIndividualListing.putExtra("Title", "Bob");
-                goToIndividualListing.putExtra("ISBN", "The");
-                goToIndividualListing.putExtra("Condition", "Builder");
-                goToIndividualListing.putExtra("Price", "Builds");
-                goToIndividualListing.putExtra("Description", "Things");
+                goToIndividualListing.putExtra("Title", listItem.getTitle());
+                goToIndividualListing.putExtra("ISBN", listItem.getIsbn());
+                goToIndividualListing.putExtra("Condition", listItem.getCondition());
+                goToIndividualListing.putExtra("Price", listItem.getPrice());
+                goToIndividualListing.putExtra("Description", listItem.getDescription());
+                goToIndividualListing.putExtra("Email", listItem.getEmail());
                 startActivity(goToIndividualListing);
             }
         });

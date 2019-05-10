@@ -22,19 +22,29 @@ public class IndividualListing extends AppCompatActivity {
         condition = (TextView)findViewById(R.id.condition);
         price = (TextView)findViewById(R.id.price);
         description = (TextView)findViewById(R.id.description);
+
+        Intent intent = getIntent();
+        title.setText(intent.getExtras().getString("Title"));
+        isbn.setText(intent.getExtras().getString("ISBN"));
+        condition.setText(intent.getExtras().getString("Condition"));
+        price.setText(intent.getExtras().getString("Price"));
+        description.setText(intent.getExtras().getString("Description"));
     }
 
     public void contactSellerClicked(View view) {
-        String[] TO = {""};
         String[] CC = {""};
+        String[] SUBJECT = {""};
+        String[] BODY = {""};
+        Intent intent = getIntent();
+        String[] EMAIL = {intent.getExtras().getString("Email")};
 
         Intent email = new Intent(Intent.ACTION_SEND);
         email.setData(Uri.parse("mailto:"));
         email.setType("text/plain");
-        email.putExtra(Intent.EXTRA_EMAIL,TO);
+        email.putExtra(Intent.EXTRA_EMAIL,EMAIL);
         email.putExtra(Intent.EXTRA_CC, CC);
-        email.putExtra(Intent.EXTRA_SUBJECT, "Your book on OurU");
-        email.putExtra(Intent.EXTRA_TEXT, "I am interested in buying your book");
+        email.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
+        email.putExtra(Intent.EXTRA_TEXT, BODY);
 
         try {
             startActivity(Intent.createChooser(email, "Send mail..."));
