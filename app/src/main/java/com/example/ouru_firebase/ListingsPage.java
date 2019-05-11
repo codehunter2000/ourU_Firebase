@@ -51,6 +51,7 @@ public class ListingsPage extends AppCompatActivity {
                 goToIndividualListing.putExtra("Price", listItem.getPrice());
                 goToIndividualListing.putExtra("Description", listItem.getDescription());
                 goToIndividualListing.putExtra("Email", listItem.getEmail());
+                goToIndividualListing.putExtra("Hash", listItem.hashCode());
                 startActivity(goToIndividualListing);
             }
         });

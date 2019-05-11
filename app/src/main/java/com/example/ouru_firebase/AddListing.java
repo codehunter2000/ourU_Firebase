@@ -3,7 +3,6 @@ package com.example.ouru_firebase;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,7 +35,6 @@ public class AddListing extends AppCompatActivity {
     Button postButton, cameraButton;
     EditText titleBox, authorBox, isbnBox, descriptionBox, priceBox;
     Spinner conditionSpinner;
-    ImageView bookPicture;
     String title, author, isbn, condition, description, price;
     private StorageReference storageRef, imagesRef, listingRef;
     private static final String FILE_NAME = "/data/user/0/com.example.ouru_firebase/files/user.dat";
@@ -59,7 +57,6 @@ public class AddListing extends AppCompatActivity {
         descriptionBox = findViewById(R.id.enter_description);
         conditionSpinner = findViewById(R.id.choose_condition);
         priceBox = findViewById(R.id.enter_price);
-        bookPicture = findViewById(R.id.book_picture);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,10 +84,10 @@ public class AddListing extends AppCompatActivity {
                 database.child("listings").child(Integer.toString(toAdd.hashCode()))
                         .setValue(toAdd);
                 listingRef = storageRef.child("images/" + toAdd.hashCode() + ".jpg");
-                Bitmap bitmap = ((BitmapDrawable) bookPicture.getDrawable()).getBitmap();
+                Bitmap bitmap = ((BitmapDrawable) iv.getDrawable()).getBitmap();
                 ByteArrayOutputStream bao = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
-                byte imageData[] = bao.toByteArray();
+                byte[] imageData = bao.toByteArray();
                 UploadTask uploadTask = listingRef.putBytes(imageData);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -105,8 +102,6 @@ public class AddListing extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-//                Toast.makeText(getApplicationContext(),"Post successful",
-//                        Toast.LENGTH_LONG).show();
                 boolean status = uploadTask.isComplete();
                 titleBox.getText().clear();
                 authorBox.getText().clear();
