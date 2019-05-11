@@ -1,6 +1,8 @@
 package com.example.ouru_firebase;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -45,11 +49,11 @@ public class IndividualListing extends AppCompatActivity {
         condition.setText(intent.getExtras().getString("Condition"));
         price.setText(intent.getExtras().getString("Price"));
         description.setText(intent.getExtras().getString("Description"));
-        hashCode = intent.getExtras().getString("Hash");
+        hashCode = Integer.toString(intent.getExtras().getInt("Hash"));
 
         imageReference = storageReference.child("images/" + hashCode + ".jpg");
         final long ONE_MEGABYTE = 1024 * 1024;
-        imageReference.getBytes(ONE_MEGABYTE)
+        Task<byte[]> downloadImageTask = imageReference.getBytes(ONE_MEGABYTE)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>()
         {
             @Override
@@ -63,6 +67,15 @@ public class IndividualListing extends AppCompatActivity {
             public void onFailure(@NonNull Exception e)
             {
                 Log.v(TAG, "Image download failed");
+            }
+        });
+        downloadImageTask.addOnCompleteListener(new OnCompleteListener<byte[]>() {
+            @Override
+            public void onComplete(@NonNull Task<byte[]> task)
+            {
+                byte[] imageBytes = task.getResult();
+                Bitmap bits = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                picture.setImageBitmap(bits);
             }
         });
     }
