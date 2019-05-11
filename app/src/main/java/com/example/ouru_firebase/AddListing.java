@@ -2,7 +2,10 @@ package com.example.ouru_firebase;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +17,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
@@ -26,7 +36,9 @@ public class AddListing extends AppCompatActivity {
     Button postButton, cameraButton;
     EditText titleBox, authorBox, isbnBox, descriptionBox, priceBox;
     Spinner conditionSpinner;
+    ImageView bookPicture;
     String title, author, isbn, condition, description, price;
+    private StorageReference storageRef, imagesRef, listingRef;
     private static final String FILE_NAME = "/data/user/0/com.example.ouru_firebase/files/user.dat";
     private static final String TAG = "AddListing Activity";
 
@@ -35,7 +47,9 @@ public class AddListing extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
         final User user = getUserInfo();
-
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+        imagesRef = storageRef.child("images");
         iv = findViewById(R.id.book_picture);
         postButton = findViewById(R.id.post_button);
         cameraButton = findViewById(R.id.camera_button);
@@ -45,6 +59,7 @@ public class AddListing extends AppCompatActivity {
         descriptionBox = findViewById(R.id.enter_description);
         conditionSpinner = findViewById(R.id.choose_condition);
         priceBox = findViewById(R.id.enter_price);
+        bookPicture = findViewById(R.id.book_picture);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +86,28 @@ public class AddListing extends AppCompatActivity {
                     user.getEmail(), price);
                 database.child("listings").child(Integer.toString(toAdd.hashCode()))
                         .setValue(toAdd);
-                Toast.makeText(getApplicationContext(),"Post successful", Toast.LENGTH_LONG).show();
+                listingRef = storageRef.child("images/" + toAdd.hashCode() + ".jpg");
+                Bitmap bitmap = ((BitmapDrawable) bookPicture.getDrawable()).getBitmap();
+                ByteArrayOutputStream bao = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+                byte imageData[] = bao.toByteArray();
+                UploadTask uploadTask = listingRef.putBytes(imageData);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),"Post was not successful",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getApplicationContext(),"Post successful",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+//                Toast.makeText(getApplicationContext(),"Post successful",
+//                        Toast.LENGTH_LONG).show();
+                boolean status = uploadTask.isComplete();
                 titleBox.getText().clear();
                 authorBox.getText().clear();
                 isbnBox.getText().clear();
