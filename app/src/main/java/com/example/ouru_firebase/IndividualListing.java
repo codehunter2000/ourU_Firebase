@@ -41,7 +41,7 @@ public class IndividualListing extends AppCompatActivity {
         condition = (TextView)findViewById(R.id.condition);
         price = (TextView)findViewById(R.id.price);
         description = (TextView)findViewById(R.id.description);
-        picture = findViewById(R.id.book_picture);
+        picture = findViewById(R.id.book_image);
 
         Intent intent = getIntent();
         title.setText(intent.getExtras().getString("Title"));
@@ -53,13 +53,15 @@ public class IndividualListing extends AppCompatActivity {
 
         imageReference = storageReference.child("images/" + hashCode + ".jpg");
         final long ONE_MEGABYTE = 1024 * 1024;
-        Task<byte[]> downloadImageTask = imageReference.getBytes(ONE_MEGABYTE)
+        imageReference.getBytes(ONE_MEGABYTE)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>()
         {
             @Override
             public void onSuccess(byte[] bytes)
             {
                 Log.v(TAG, "Image download success");
+                Bitmap bits = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                picture.setImageBitmap(bits);
             }
         }).addOnFailureListener(new OnFailureListener()
         {
@@ -67,15 +69,6 @@ public class IndividualListing extends AppCompatActivity {
             public void onFailure(@NonNull Exception e)
             {
                 Log.v(TAG, "Image download failed");
-            }
-        });
-        downloadImageTask.addOnCompleteListener(new OnCompleteListener<byte[]>() {
-            @Override
-            public void onComplete(@NonNull Task<byte[]> task)
-            {
-                byte[] imageBytes = task.getResult();
-                Bitmap bits = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                picture.setImageBitmap(bits);
             }
         });
     }
