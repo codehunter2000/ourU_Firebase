@@ -33,7 +33,7 @@ public class MyListings extends AppCompatActivity {
     private ListView listView;
     private ArrayAdapter arrayAdapter;
     private DatabaseReference databaseReference, listingReferene;
-    private StorageReference storeageRefernce, pictureReference;
+    private StorageReference storageReference, pictureReference;
     private Listing tempListing = null;
 
 
@@ -45,9 +45,11 @@ public class MyListings extends AppCompatActivity {
         user = getUserInfo();
         listView = (ListView) findViewById(R.id.listview);
         databaseReference = FirebaseDatabase.getInstance().getReference("listings");
-        storeageRefernce = FirebaseStorage.getInstance().getReference("images");
-
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         listings = new ArrayList<>();
+
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("Edit Listing")
                 .setMessage("Select An Options")
@@ -67,13 +69,10 @@ public class MyListings extends AppCompatActivity {
                                 Log.v(TAG, "Listing remove successful");
                             }
                         });
+                        pictureReference = storageReference.child("images/"
+                                + tempListing.hashCode() + ".jpg");
+                        pictureReference.delete();
                         dialog.dismiss();
-                    }
-                })
-                .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
 
