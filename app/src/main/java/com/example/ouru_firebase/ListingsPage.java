@@ -55,9 +55,6 @@ public class ListingsPage extends AppCompatActivity {
                 startActivity(goToIndividualListing);
             }
         });
-
-//        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, listings);
-//        listView.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -107,8 +104,8 @@ public class ListingsPage extends AppCompatActivity {
     }
 
     public void myListingsClicked(View view) {
-        //Intent goToMyListings= new Intent(this, MyListings.class);
-        //startActivity(goToMyListings);
+        Intent goToMyListings= new Intent(this, MyListings.class);
+        startActivity(goToMyListings);
     }
 
     public void signOutClicked(View view) {

@@ -135,7 +135,7 @@ public class AddListing extends AppCompatActivity {
 
         catch (Exception e)
         {
-            Log.v(TAG, "Error saving user data");
+            Log.v(TAG, "Error reading user data");
         }
 
         return null;
@@ -147,8 +147,8 @@ public class AddListing extends AppCompatActivity {
     }
 
     public void myListingsClicked(View view) {
-        //Intent goToMyListings= new Intent(this, MyListings.class);
-        //startActivity(goToMyListings);
+        Intent goToMyListings= new Intent(this, MyListings.class);
+        startActivity(goToMyListings);
     }
 
     public void signOutClicked(View view) {
