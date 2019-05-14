@@ -29,14 +29,15 @@
                     android:id="@+id/create_post"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:onClick="createPostClicked"
-                    android:src="@drawable/create_post" />
+                    android:src="@drawable/create_post"
+                    android:onClick="createPostClicked" />
 
                 <ImageButton
                     android:id="@+id/blank"
-                    android:layout_width="112dp"
+                    android:layout_width="192dp"
                     android:layout_height="100dp"
                     android:src="@drawable/blank" />
+
 
                 <ImageButton
                     android:id="@+id/view_listings"
@@ -44,6 +45,12 @@
                     android:layout_height="100dp"
                     android:src="@drawable/view_listings"
                     android:onClick="viewListingsClicked" />
+
+                <ImageButton
+                    android:id="@+id/blank2"
+                    android:layout_width="192dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/sign_out"

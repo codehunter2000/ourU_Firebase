@@ -36,34 +36,26 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:onClick="createPostClicked"
-            android:src="@drawable/create_post"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"/>
+            android:src="@drawable/create_post" />
 
     <ImageButton
         android:id="@+id/blank"
         android:layout_width="112dp"
         android:layout_height="100dp"
-        android:src="@drawable/blank"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/create_post"/>
+        android:src="@drawable/blank" />
 
     <ImageButton
         android:id="@+id/my_listings"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/my_listings"
-        android:onClick="myListingsClicked"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/blank"/>
+        android:onClick="myListingsClicked" />
 
     <ImageButton
         android:id="@+id/sign_out"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/sign_out"
-        android:onClick="signOutClicked"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:onClick="signOutClicked" />
     </LinearLayout>
 </LinearLayout>

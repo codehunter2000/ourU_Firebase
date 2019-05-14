@@ -1,6 +1,7 @@
 package com.example.ouru_firebase;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +54,7 @@ public class MyListings extends AppCompatActivity {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("Edit Listing")
-                .setMessage("Select An Options")
+                .setMessage("Select An Option")
                 .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -125,4 +127,19 @@ public class MyListings extends AppCompatActivity {
         return null;
     }
 
+    public void createPostClicked(View view) {
+        Intent goToAddListings = new Intent(this, AddListing.class);
+        startActivity(goToAddListings);
+    }
+
+    public void viewListingsClicked(View view) {
+        Intent goToListings = new Intent(this, ListingsPage.class);
+        startActivity(goToListings);
+    }
+
+    public void signOutClicked(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent goToSignInPage = new Intent(this,MainActivity.class);
+        startActivity(goToSignInPage);
+    }
 }

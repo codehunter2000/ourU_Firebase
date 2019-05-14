@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -42,11 +43,11 @@ public class IndividualListing extends AppCompatActivity {
         picture = findViewById(R.id.book_image);
 
         Intent intent = getIntent();
-        title.setText(intent.getExtras().getString("Title"));
-        isbn.setText(intent.getExtras().getString("ISBN"));
-        condition.setText(intent.getExtras().getString("Condition"));
-        price.setText(intent.getExtras().getString("Price"));
-        description.setText(intent.getExtras().getString("Description"));
+        title.setText("Title: " + intent.getExtras().getString("Title"));
+        isbn.setText("ISBN: " + intent.getExtras().getString("ISBN"));
+        condition.setText("Condition : " + intent.getExtras().getString("Condition"));
+        price.setText("Price: " + intent.getExtras().getString("Price"));
+        description.setText("Description: " + intent.getExtras().getString("Description"));
         hashCode = Integer.toString(intent.getExtras().getInt("Hash"));
 
         imageReference = storageReference.child("images/" + hashCode + ".jpg");
@@ -92,5 +93,26 @@ public class IndividualListing extends AppCompatActivity {
         }catch (android.content.ActivityNotFoundException ex){
             Toast.makeText(IndividualListing.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void viewListingsClicked(View view) {
+        Intent goToListings = new Intent(this, ListingsPage.class);
+        startActivity(goToListings);
+    }
+
+    public void myListingsClicked(View view) {
+        Intent goToMyListings= new Intent(this, MyListings.class);
+        startActivity(goToMyListings);
+    }
+
+    public void signOutClicked(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent goToSignInPage = new Intent(this,MainActivity.class);
+        startActivity(goToSignInPage);
+    }
+
+    public void createPostClicked(View view) {
+        Intent goToAddListings = new Intent(this, AddListing.class);
+        startActivity(goToAddListings);
     }
 }
