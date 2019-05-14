@@ -109,6 +109,7 @@ public class AddListing extends AppCompatActivity {
                 conditionSpinner.setSelection(0);
                 descriptionBox.getText().clear();
                 priceBox.getText().clear();
+                iv.setImageDrawable(getResources().getDrawable(R.drawable.default_book));
             }
         });
     }
