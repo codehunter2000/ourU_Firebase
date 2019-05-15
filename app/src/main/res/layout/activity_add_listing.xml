@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,16 +10,20 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="1000dp">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/book_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Book Title:"
                 android:textColor="#FFFFFF"
                 android:textSize="30dp" />
@@ -28,184 +32,180 @@
                 android:id="@+id/enter_title"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="#FFFFFF"
                 android:layout_below="@id/book_title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
                 android:hint="Title" />
 
             <TextView
                 android:id="@+id/book_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/enter_title"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Book Author:"
                 android:textColor="#FFFFFF"
-                android:layout_below="@id/enter_title"
                 android:textSize="30dp" />
 
             <EditText
                 android:id="@+id/enter_author"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="#FFFFFF"
                 android:layout_below="@id/book_author"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
                 android:hint="Author" />
 
             <TextView
                 android:id="@+id/ISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/enter_author"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="ISBN#:"
                 android:textColor="#FFFFFF"
-                android:layout_below="@id/enter_author"
                 android:textSize="30dp" />
 
             <EditText
                 android:id="@+id/enter_ISBN"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="#FFFFFF"
                 android:layout_below="@id/ISBN"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
                 android:hint="ISBN#" />
 
             <TextView
                 android:id="@+id/condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/enter_ISBN"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Condition:"
                 android:textColor="#FFFFFF"
-                android:layout_below="@id/enter_ISBN"
                 android:textSize="30dp" />
 
             <Spinner
                 android:id="@+id/choose_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/conditions"
-                android:prompt="@string/cond_prompt"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
                 android:layout_below="@id/condition"
-                android:background="#FFFFFF">
-            </Spinner>
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
+                android:entries="@array/conditions"
+                android:prompt="@string/cond_prompt"></Spinner>
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/choose_condition"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Price:"
                 android:textColor="#FFFFFF"
-                android:layout_below="@id/choose_condition"
                 android:textSize="30dp" />
 
             <EditText
                 android:id="@+id/enter_price"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="#FFFFFF"
                 android:layout_below="@id/price"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
                 android:hint="$XX.XX" />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/enter_price"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Description:"
                 android:textColor="#FFFFFF"
-                android:layout_below="@id/enter_price"
                 android:textSize="30dp" />
 
             <EditText
                 android:id="@+id/enter_description"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_below="@id/description"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
+                android:gravity="top|left"
+                android:hint="This book is for (class name) and (has minimal highlighting and wear)."
                 android:inputType="textMultiLine"
                 android:lines="5"
-                android:maxLines="5"
-                android:background="#FFFFFF"
-                android:layout_below="@id/description"
-                android:hint="This book is for (class name) and (has minimal highlighting and wear)."
-                android:gravity="top|left"/>
+                android:maxLines="5" />
 
             <Button
                 android:id="@+id/camera_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/enter_description"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:text="Take Picture"
-                android:layout_below="@id/enter_description"/>
+                android:text="Take Picture" />
 
             <ImageView
                 android:id="@+id/book_picture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/default_book"
                 android:layout_below="@id/camera_button"
-                android:layout_centerHorizontal="true"/>
+                android:layout_gravity="center"
+                android:src="@drawable/default_book" />
 
             <Button
                 android:id="@+id/post_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/book_picture"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:text="Post Listing"/>
-        </RelativeLayout>
+                android:text="Post Listing" />
+        </LinearLayout>
     </ScrollView>
 
-    <ImageButton
-        android:id="@+id/blank"
-        android:layout_width="112dp"
-        android:layout_height="100dp"
-        android:src="@drawable/blank"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/view_listings"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_weight="1">
 
     <ImageButton
         android:id="@+id/view_listings"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:onClick="viewListingsClicked"
-        android:src="@drawable/view_listings"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"/>
+        android:src="@drawable/view_listings" />
+
+    <ImageButton
+        android:id="@+id/blank"
+        android:layout_width="112dp"
+        android:layout_height="100dp"
+        android:src="@drawable/blank" />
 
     <ImageButton
         android:id="@+id/my_listings"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/my_listings"
-        android:onClick="myListingsClicked"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/blank"/>
+        android:onClick="myListingsClicked" />
 
     <ImageButton
         android:id="@+id/sign_out"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/sign_out"
-        android:onClick="signOutClicked"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
-
-</RelativeLayout>
+        android:onClick="signOutClicked" />
+    </LinearLayout>
+</LinearLayout>
